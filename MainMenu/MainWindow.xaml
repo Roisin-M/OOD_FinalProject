@@ -1,0 +1,123 @@
+﻿<Window x:Class="MainMenu.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainMenu"
+        mc:Ignorable="d"
+        Title="MainWindow" Width="1200" Height="700"
+        WindowState="Maximized">
+    <Grid>
+        <TabControl TabStripPlacement="Right" BorderThickness="0" Margin="15">
+            <!-- Style for TabItems -->
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="Height" Value="70"/>
+                    <Setter Property="Margin" Value="0,5"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Width" Value="100"/>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Name="tb_mainMenu" Header="Main Menu">
+                <Grid>
+                    <Image Grid.Row="0" Source="/mainMenu_IMG.png" Stretch="Fill"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="tb_YogaPoses" Header="Yoga Poses">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Content="Category:"></Label>
+                    <ComboBox Name="cbx_Category" Height="30" Width="175" Grid.Column="0" Grid.Row="0" SelectionChanged="cbx_Category_SelectionChanged"></ComboBox>
+                    <Label Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Content="Focus:"></Label>
+                    <ComboBox Name="cbx_Focus" Height="30" Width="100" Grid.Column="1" Grid.Row="0"></ComboBox>
+                    <ListBox Name="lbx_yogaPoses" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="lbx_yogaPoses_SelectionChanged">
+                    </ListBox>
+                    <Button Name="btn_RandomYogaPose" Grid.Column="2" Grid.Row="1" Width="140" Height="40" Content="Random"></Button>
+                    <Button Name="btn_AddPose_ToRoutine" Grid.Column="2" Grid.Row="2" Width="140" Height="40" Content="Add To Routine"></Button>
+                    <Button Name="btn_YogaPoseGuide" Grid.Column="2" Grid.Row="3" Width="140" Height="40" Content="Step By Step"></Button>
+                    <TextBlock Name="tblk_PoseName" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Height="40" Width="275" VerticalAlignment="Top" Margin="20"></TextBlock>
+                    <TextBlock Name="tblk_PoseName_Sanskrit" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Height="30" Width="275" VerticalAlignment="Bottom" Margin="30"></TextBlock>
+                    <Image Name="img_PoseIcon" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Margin="10" Width="125" Height="125"></Image>
+                    <TextBlock Name="tblk_PoseBenefits" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Height="150" Width="275" VerticalAlignment="Top" Margin="10" TextWrapping="Wrap"></TextBlock>
+                    <TextBlock Name="tblk_PoseDescription" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Height="150" Width="275" VerticalAlignment="Top" Margin="10" TextWrapping="Wrap"></TextBlock>
+
+                </Grid>
+            </TabItem>
+            <TabItem Name="tb_Routines" Header="My Routines">
+                <Grid>
+                    <TabControl TabStripPlacement="Top" BorderThickness="0" Margin="15">
+                        <TabControl.Resources>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Padding" Value="5"/>
+                                <Setter Property="Height" Value="50"/>
+                                <Setter Property="Margin" Value="0,5"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="Width" Value="90"/>
+                            </Style>
+                        </TabControl.Resources>
+                        <!--********************************-->
+                        <TabItem Name="tb_Routines_MyRoutines" Header="My Routines">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="My Routines"></Label>
+                                <ListBox Name="lbx_MyRoutines" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Width="450"></ListBox>
+                                
+                            </Grid>
+                        </TabItem>
+                        <!--********************************-->
+                        <!--********************************-->
+                        <TabItem Name="tb_Routines_CreateRoutines" Header="New Routine">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="new routines create"></Label>
+                            </Grid>
+                        </TabItem>
+                        <!--********************************-->
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem Name="tb_TrackProgress" Header="My Progress">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="90*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="My Progress"></Label>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
