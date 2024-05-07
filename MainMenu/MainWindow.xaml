@@ -46,7 +46,7 @@
                     <ComboBox Name="cbx_Focus" Height="30" Width="100" Grid.Column="1" Grid.Row="0"></ComboBox>
                     <ListBox Name="lbx_yogaPoses" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="lbx_yogaPoses_SelectionChanged">
                     </ListBox>
-                    <Button Name="btn_RandomYogaPose" Grid.Column="2" Grid.Row="1" Width="140" Height="40" Content="Random"></Button>
+                    <Button Name="btn_RandomYogaPose" Grid.Column="2" Grid.Row="1" Width="140" Height="40" Content="Random" Click="btn_RandomYogaPose_Click"></Button>
                     <Button Name="btn_AddPose_ToRoutine" Grid.Column="2" Grid.Row="2" Width="140" Height="40" Content="Add To Routine"></Button>
                     <Button Name="btn_YogaPoseGuide" Grid.Column="2" Grid.Row="3" Width="140" Height="40" Content="Step By Step"></Button>
                     <TextBlock Name="tblk_PoseName" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Height="40" Width="275" VerticalAlignment="Top" Margin="20"></TextBlock>

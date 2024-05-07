@@ -176,5 +176,34 @@ namespace MainMenu
                 }
             }
         }
+
+        private void DisplayPoseDetails(YogaPoseWithCategory pose)
+        {
+            var selectedPose = FindPose(pose.Name, pose.Category);
+            if (selectedPose != null)
+            {
+                tblk_PoseName.Text = $"{selectedPose.english_name}";
+                tblk_PoseName_Sanskrit.Text = $"{selectedPose.sanskrit_name_adapted}";
+                tblk_PoseBenefits.Text = $"{selectedPose.pose_benefits}";
+                tblk_PoseDescription.Text = $"{selectedPose.pose_description}";
+
+                if (!string.IsNullOrEmpty(selectedPose.url_png))
+                {
+                    BitmapImage bitmap = new BitmapImage(new Uri(selectedPose.url_png));
+                    img_PoseIcon.Source = bitmap;
+                }
+            }
+        }
+
+        private void btn_RandomYogaPose_Click(object sender, RoutedEventArgs e)
+        {
+            //create Random Obj
+            Random random = new Random();
+            if (yogaPosesWithCategories.Any())
+            {
+                var randomPose = yogaPosesWithCategories[random.Next(yogaPosesWithCategories.Count)];
+                DisplayPoseDetails(randomPose);
+            }
+        }
     }
 }
