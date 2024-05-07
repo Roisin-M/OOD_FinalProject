@@ -19,7 +19,7 @@ namespace MainMenu
     /// </summary>
     public partial class SelectRoutineWindow : Window
     {
-        public YogaPoseWithCategory PoseToAdd { get; set; }
+        public Pose PoseToAdd { get; set; }
 
         public SelectRoutineWindow(List<Routine> routines)
         {
@@ -41,5 +41,6 @@ namespace MainMenu
             }
         }
     }
+
 
 }

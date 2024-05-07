@@ -43,15 +43,15 @@ namespace MainMenu
     public class Routine
     {
         public string Name { get; set; }
-        public List<YogaPoseWithCategory> Poses { get; set; }
+        public List<Pose> Poses { get; set; } 
 
         public Routine()
         {
-            Poses = new List<YogaPoseWithCategory>();
+            Poses = new List<Pose>();
         }
 
         // Method to add a pose to the routine
-        public void AddPose(YogaPoseWithCategory pose)
+        public void AddPose(Pose pose)
         {
             if (!Poses.Contains(pose))
             {
@@ -60,7 +60,7 @@ namespace MainMenu
         }
 
         // Method to remove a pose from the routine
-        public void RemovePose(YogaPoseWithCategory pose)
+        public void RemovePose(Pose pose)
         {
             Poses.Remove(pose);
         }

@@ -59,58 +59,37 @@
             </TabItem>
             <TabItem Name="tb_Routines" Header="My Routines">
                 <Grid>
-                    <TabControl TabStripPlacement="Top" BorderThickness="0" Margin="15">
-                        <TabControl.Resources>
-                            <Style TargetType="TabItem">
-                                <Setter Property="Padding" Value="5"/>
-                                <Setter Property="Height" Value="50"/>
-                                <Setter Property="Margin" Value="0,5"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="FontSize" Value="12"/>
-                                <Setter Property="Width" Value="90"/>
-                            </Style>
-                        </TabControl.Resources>
-                        <!--********************************-->
-                        <TabItem Name="tb_Routines_MyRoutines" Header="My Routines">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Label Content="My Routines"></Label>
-                                <ListBox Name="lbx_MyRoutines" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Width="450"></ListBox>
-                                
-                            </Grid>
-                        </TabItem>
-                        <!--********************************-->
-                        <!--********************************-->
-                        <TabItem Name="tb_Routines_CreateRoutines" Header="New Routine">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Label Content="new routines create"></Label>
-                                <TextBox Name="txt_RoutineName" Grid.Column="0" Grid.Row="0" Width="200" Margin="10"/>
-                                <Button x:Name="btn_AddRoutine" Content="Add Routine" Grid.Column="1" Grid.Row="0" Width="100" Click="btn_AddRoutine_Click"/>
-                            </Grid>
-                        </TabItem>
-                        <!--********************************-->
-                    </TabControl>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Panel for routines list and adding new routines -->
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <Label Content="Routines" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <ListBox Name="lbx_Routines" DisplayMemberPath="Name" SelectionChanged="lbx_Routines_SelectionChanged" Height="300" Margin="0,0,0,10"/>
+                        <TextBox Name="txt_RoutineName" Width="200" Margin="0,0,0,10" ToolTip="Enter new routine name"/>
+                        <Button Content="Add New Routine" Click="btn_AddRoutine_Click" Width="200" Height="30"/>
+                    </StackPanel>
+
+                    <!-- Details and Navigation for Selected Pose in Routine -->
+                    <Border Grid.Column="1" Margin="20" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10">
+                        <StackPanel>
+                            <Label Content="Selected Pose Details:" FontWeight="Bold" FontSize="16"/>
+                            <Image Name="img_SelectedPose" Height="200" Margin="0,10"/>
+                            <TextBlock Name="tbk_PoseName" FontSize="14" FontWeight="Bold"/>
+                            <TextBlock Name="tbk_PoseDescription" TextWrapping="Wrap" Margin="0,5"/>
+
+                            <!-- Navigation Buttons -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                                <Button Content="Previous" Click="btn_PreviousPose_Click" Margin="5"/>
+                                <Button Content="Next" Click="btn_NextPose_Click" Margin="5"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </TabItem>
+
             <TabItem Name="tb_TrackProgress" Header="My Progress">
                 <Grid>
                     <Grid.RowDefinitions>

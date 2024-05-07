@@ -31,6 +31,9 @@ namespace MainMenu
         // a list to store all the routine objects
         List<Routine> routines = new List<Routine>();
 
+        private Routine _selectedRoutine;
+        private int _currentPoseIndex;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -150,34 +153,27 @@ namespace MainMenu
         }
         private void RefreshFilteredPoses()
         {
-            // Check if a category is selected
             if (cbx_Category.SelectedItem != null)
             {
-                // Retrieve the selected category
                 string selectedCategory = cbx_Category.SelectedItem.ToString();
+                List<YogaPoseWithCategory> filteredPoses = new List<YogaPoseWithCategory>();
 
-                if (selectedCategory == "All Poses")
+                foreach (var pose in yogaPosesWithCategories)
                 {
-                    lbx_yogaPoses.ItemsSource = yogaPosesWithCategories;
-                }
-                else
-                {
-                    // Filter the yoga poses based on the selected category
-                    List<YogaPoseWithCategory> filteredPoses = new List<YogaPoseWithCategory>();
-
-                    foreach (YogaPoseWithCategory pose in lbx_yogaPoses.Items)
+                    if (selectedCategory == "All Poses" || pose.Category == selectedCategory)
                     {
-                        if (pose.Category == selectedCategory)
+                        // Check if the pose is already in the filtered list
+                        if (!filteredPoses.Any(p => p.Name == pose.Name && p.Category == pose.Category))
                         {
                             filteredPoses.Add(pose);
                         }
                     }
-
-                    // Update the ListBox with the filtered items
-                    lbx_yogaPoses.ItemsSource = filteredPoses;
                 }
+
+                lbx_yogaPoses.ItemsSource = filteredPoses;
             }
         }
+
 
         private void DisplayPoseDetails(YogaPoseWithCategory pose)
         {
@@ -214,8 +210,8 @@ namespace MainMenu
             {
                 Routine newRoutine = new Routine { Name = txt_RoutineName.Text };
                 routines.Add(newRoutine);
-                lbx_MyRoutines.Items.Add(newRoutine);
-                txt_RoutineName.Clear();
+                lbx_Routines.Items.Add(newRoutine);
+                txt_RoutineName.Clear(); // Clear the textbox after adding
             }
             else
             {
@@ -223,19 +219,73 @@ namespace MainMenu
             }
         }
 
+
         private void btn_AddPose_ToRoutine_Click(object sender, RoutedEventArgs e)
         {
             if (lbx_yogaPoses.SelectedItem != null)
             {
-                YogaPoseWithCategory pose = lbx_yogaPoses.SelectedItem as YogaPoseWithCategory;
-                SelectRoutineWindow selectRoutineWindow = new SelectRoutineWindow(routines);
-                selectRoutineWindow.PoseToAdd = pose;
-                selectRoutineWindow.ShowDialog();
+                YogaPoseWithCategory selectedYogaPose = (YogaPoseWithCategory)lbx_yogaPoses.SelectedItem;
+                Pose pose = FindPose(selectedYogaPose.Name, selectedYogaPose.Category);  
+                if (pose != null)
+                {
+                    SelectRoutineWindow selectRoutineWindow = new SelectRoutineWindow(routines);
+                    selectRoutineWindow.PoseToAdd = pose;
+                    selectRoutineWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Pose details not found.");
+                }
             }
             else
             {
                 MessageBox.Show("Please select a pose to add.");
             }
         }
+        private void lbx_Routines_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbx_Routines.SelectedItem is Routine selectedRoutine && selectedRoutine.Poses.Count > 0)
+            {
+                _selectedRoutine = selectedRoutine;
+                _currentPoseIndex = 0; // Reset index to show the first pose
+                UpdatePoseDetails(_selectedRoutine.Poses[_currentPoseIndex]);
+            }
+            else
+            {
+                // Optionally clear previous details or show a default message
+                ClearPoseDetails();
+            }
+        }
+        private void ClearPoseDetails()
+        {
+            tbk_PoseName.Text = "Select a pose";
+            tbk_PoseDescription.Text = "";
+            img_SelectedPose.Source = null;
+        }
+        private void UpdatePoseDetails(Pose pose)
+        {
+            tbk_PoseName.Text = pose.english_name;
+            tbk_PoseDescription.Text = pose.pose_description;
+            img_SelectedPose.Source = new BitmapImage(new Uri(pose.url_png, UriKind.RelativeOrAbsolute));
+        }
+
+        private void btn_PreviousPose_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedRoutine != null && _currentPoseIndex > 0)
+            {
+                _currentPoseIndex--;
+                UpdatePoseDetails(_selectedRoutine.Poses[_currentPoseIndex]);
+            }
+        }
+
+        private void btn_NextPose_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedRoutine != null && _currentPoseIndex < _selectedRoutine.Poses.Count - 1)
+            {
+                _currentPoseIndex++;
+                UpdatePoseDetails(_selectedRoutine.Poses[_currentPoseIndex]);
+            }
+        }
+
     }
 }
