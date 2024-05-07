@@ -50,6 +50,20 @@ namespace MainMenu
             Poses = new List<YogaPoseWithCategory>();
         }
 
+        // Method to add a pose to the routine
+        public void AddPose(YogaPoseWithCategory pose)
+        {
+            if (!Poses.Contains(pose))
+            {
+                Poses.Add(pose);
+            }
+        }
+
+        // Method to remove a pose from the routine
+        public void RemovePose(YogaPoseWithCategory pose)
+        {
+            Poses.Remove(pose);
+        }
         public override string ToString()
         {
             return Name;

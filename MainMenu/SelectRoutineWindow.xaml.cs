@@ -32,7 +32,7 @@ namespace MainMenu
             Routine selectedRoutine = lbx_Routines.SelectedItem as Routine;
             if (selectedRoutine != null && PoseToAdd != null)
             {
-                selectedRoutine.Poses.Add(PoseToAdd);
+                selectedRoutine.AddPose(PoseToAdd);
                 Close();
             }
             else
