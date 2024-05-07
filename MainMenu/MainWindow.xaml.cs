@@ -26,8 +26,10 @@ namespace MainMenu
     /// </summary>
     public partial class MainWindow : Window
     {
-        // Create a list to store yoga poses with their categories
+        // a list to store yoga poses with their categories
         List<YogaPoseWithCategory> yogaPosesWithCategories = new List<YogaPoseWithCategory>();
+        // a list to store all the routine objects
+        List<Routine> routines = new List<Routine>();
 
         public MainWindow()
         {
@@ -42,7 +44,7 @@ namespace MainMenu
         }
         private void FetchYogaPoses()
         {
-            string link = @"C:\Users\35389\OneDrive - Atlantic TU\4sem\ood\Project\draft3\YogaFlow_OOPCA-master\YogaPoses.json";
+            string link = "Poses.json";
             try
             {
                 // Read the JSON data from the file
@@ -75,7 +77,7 @@ namespace MainMenu
             catch (Exception ex)
             {
                 // Handle other exceptions
-                Console.WriteLine("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
         private void lbx_yogaPoses_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -112,7 +114,7 @@ namespace MainMenu
                     image.Width = 250; // Set the desired width
                     image.Height = 400; // Set the desired height
 
-                    img_PoseIcon.Source=bitmap;
+                    img_PoseIcon.Source = bitmap;
                 }
             }
         }
@@ -121,7 +123,7 @@ namespace MainMenu
         private Pose FindPose(string name, string category)
         {
             // Read the JSON data from the file
-            string jsonData = File.ReadAllText(@"C:\Users\35389\OneDrive - Atlantic TU\4sem\ood\Project\draft3\YogaFlow_OOPCA-master\YogaPoses.json");
+            string jsonData = File.ReadAllText("Poses.json");
 
             // Deserialize the JSON response
             List<Root> roots = JsonConvert.DeserializeObject<List<Root>>(jsonData);
@@ -149,14 +151,14 @@ namespace MainMenu
         private void RefreshFilteredPoses()
         {
             // Check if a category is selected
-            if (cbx_Category.SelectedItem != null )
+            if (cbx_Category.SelectedItem != null)
             {
                 // Retrieve the selected category
                 string selectedCategory = cbx_Category.SelectedItem.ToString();
-                
-                if (selectedCategory =="All Poses")
+
+                if (selectedCategory == "All Poses")
                 {
-                    lbx_yogaPoses.ItemsSource= yogaPosesWithCategories;
+                    lbx_yogaPoses.ItemsSource = yogaPosesWithCategories;
                 }
                 else
                 {
@@ -203,6 +205,36 @@ namespace MainMenu
             {
                 var randomPose = yogaPosesWithCategories[random.Next(yogaPosesWithCategories.Count)];
                 DisplayPoseDetails(randomPose);
+            }
+        }
+
+        private void btn_AddRoutine_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txt_RoutineName.Text))
+            {
+                Routine newRoutine = new Routine { Name = txt_RoutineName.Text };
+                routines.Add(newRoutine);
+                lbx_MyRoutines.Items.Add(newRoutine);
+                txt_RoutineName.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Please enter a name for the routine.");
+            }
+        }
+
+        private void btn_AddPose_ToRoutine_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbx_yogaPoses.SelectedItem != null)
+            {
+                YogaPoseWithCategory pose = lbx_yogaPoses.SelectedItem as YogaPoseWithCategory;
+                SelectRoutineWindow selectRoutineWindow = new SelectRoutineWindow(routines);
+                selectRoutineWindow.PoseToAdd = pose;
+                selectRoutineWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Please select a pose to add.");
             }
         }
     }

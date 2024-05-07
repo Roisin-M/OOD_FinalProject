@@ -39,6 +39,23 @@ namespace MainMenu
             return $"{Name}   -   {Category}";
         }
     }
+    // routine class to hold name of routine and the list of poses
+    public class Routine
+    {
+        public string Name { get; set; }
+        public List<YogaPoseWithCategory> Poses { get; set; }
+
+        public Routine()
+        {
+            Poses = new List<YogaPoseWithCategory>();
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+
 
 
 }
