@@ -108,7 +108,7 @@ namespace MainMenu
                     tblk_PoseName.Text = $"{selectedPose.english_name}";
                     tblk_PoseName_Sanskrit.Text = $"{selectedPose.sanskrit_name_adapted}";
                     tblk_PoseBenefits.Text = $"{selectedPose.pose_benefits}";
-                    tblk_PoseDescription.Text = $"{selectedPose.pose_description}";
+                    //tblk_PoseDescription.Text = $"{selectedPose.pose_description}";
                 }
                 // Display the image
                 if (!string.IsNullOrEmpty(selectedPose.url_png))
@@ -190,7 +190,7 @@ namespace MainMenu
                 tblk_PoseName.Text = $"{selectedPose.english_name}";
                 tblk_PoseName_Sanskrit.Text = $"{selectedPose.sanskrit_name_adapted}";
                 tblk_PoseBenefits.Text = $"{selectedPose.pose_benefits}";
-                tblk_PoseDescription.Text = $"{selectedPose.pose_description}";
+                //tblk_PoseDescription.Text = $"{selectedPose.pose_description}";
 
                 if (!string.IsNullOrEmpty(selectedPose.url_png))
                 {
@@ -275,13 +275,13 @@ namespace MainMenu
         {
             tbk_PoseName.Text = "Select a pose";
             tbk_PoseDescription.Text = "";
-            img_SelectedPose.Source = null;
+            img_PoseIcon2.Source = null;
         }
         private void UpdatePoseDetails(Pose pose)
         {
             tbk_PoseName.Text = pose.english_name;
             tbk_PoseDescription.Text = pose.pose_description;
-            img_SelectedPose.Source = new BitmapImage(new Uri(pose.url_png, UriKind.RelativeOrAbsolute));
+            img_PoseIcon2.Source = new BitmapImage(new Uri(pose.url_png, UriKind.RelativeOrAbsolute));
         }
 
         private void btn_PreviousPose_Click(object sender, RoutedEventArgs e)
@@ -348,5 +348,7 @@ namespace MainMenu
                 MessageBox.Show("No pose selected or routine is empty.");
             }
         }
+
+      
     }
 }
