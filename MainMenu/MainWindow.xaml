@@ -45,8 +45,7 @@
                     <ListBox Name="lbx_yogaPoses" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="lbx_yogaPoses_SelectionChanged">
                     </ListBox>
                     <Button Name="btn_RandomYogaPose" Grid.Column="2" Grid.Row="1" Width="140" Height="40" Content="Random" Click="btn_RandomYogaPose_Click"></Button>
-                    <Button Name="btn_AddPose_ToRoutine" Grid.Column="2" Grid.Row="2" Width="140" Height="40" Content="Add To Routine" Click="btn_AddPose_ToRoutine_Click" ></Button> <!--Click="btn_AddPose_ToRoutine_Click"-->
-                    <Button Name="btn_YogaPoseGuide" Grid.Column="2" Grid.Row="3" Width="140" Height="40" Content="Step By Step"></Button>
+                    <Button Name="btn_AddPose_ToRoutine" Grid.Column="2" Grid.Row="2" Width="140" Height="40" Content="Add To Routine" Click="btn_AddPose_ToRoutine_Click" ></Button> 
                     <TextBlock Name="tblk_PoseName" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Height="40" Width="275" VerticalAlignment="Top" Margin="20"></TextBlock>
                     <TextBlock Name="tblk_PoseName_Sanskrit" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Height="30" Width="275" VerticalAlignment="Bottom" Margin="30"></TextBlock>
                     <Image Name="img_PoseIcon" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Margin="10" Width="125" Height="125"></Image>
@@ -86,16 +85,6 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                </Grid>
-            </TabItem>
-
-            <TabItem Name="tb_TrackProgress" Header="My Progress">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="90*"/>
-                    </Grid.RowDefinitions>
-                    <Label Content="My Progress"></Label>
                 </Grid>
             </TabItem>
         </TabControl>
