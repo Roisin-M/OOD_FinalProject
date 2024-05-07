@@ -42,7 +42,6 @@
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Content="Category:"></Label>
                     <ComboBox Name="cbx_Category" Height="30" Width="175" Grid.Column="0" Grid.Row="0" SelectionChanged="cbx_Category_SelectionChanged"></ComboBox>
-                    <Label Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Content="Focus:"></Label>
                     <ListBox Name="lbx_yogaPoses" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="lbx_yogaPoses_SelectionChanged">
                     </ListBox>
                     <Button Name="btn_RandomYogaPose" Grid.Column="2" Grid.Row="1" Width="140" Height="40" Content="Random" Click="btn_RandomYogaPose_Click"></Button>
@@ -83,6 +82,7 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                                 <Button Content="Previous" Click="btn_PreviousPose_Click" Margin="5"/>
                                 <Button Content="Next" Click="btn_NextPose_Click" Margin="5"/>
+                                <Button Content="Remove Pose" Click="btn_RemovePose_Click" Margin="5" Width="200" Height="30"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

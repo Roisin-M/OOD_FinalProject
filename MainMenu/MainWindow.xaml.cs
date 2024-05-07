@@ -312,7 +312,41 @@ namespace MainMenu
                 lbx_Routines.ItemsSource = routines.ToList(); // ToList() to ensure the UI gets a new collection
             });
         }
+        private void RefreshPoseList()
+        {
+            lbx_yogaPoses.ItemsSource = null;
+            lbx_yogaPoses.ItemsSource = _selectedRoutine.Poses;
+        }
 
+        private void btn_RemovePose_Click(object sender, RoutedEventArgs e)
+        {
+            // Check if a routine is selected and that the routine has poses
+            if (_selectedRoutine != null && _selectedRoutine.Poses.Count > 0 && _currentPoseIndex >= 0)
+            {
+                // Remove the currently displayed pose based on _currentPoseIndex
+                Pose poseToRemove = _selectedRoutine.Poses[_currentPoseIndex];
+                _selectedRoutine.Poses.RemoveAt(_currentPoseIndex);
 
+                // Update the display
+                RefreshPoseList();
+                ClearPoseDetails();
+
+                // Select the next pose in the list, if available
+                if (_selectedRoutine.Poses.Count > 0)
+                {
+                    _currentPoseIndex = Math.Min(_currentPoseIndex, _selectedRoutine.Poses.Count - 1);
+                    UpdatePoseDetails(_selectedRoutine.Poses[_currentPoseIndex]);
+                }
+                else
+                {
+                    _currentPoseIndex = -1; // Reset index if no poses left
+                    MessageBox.Show("No more poses in this routine.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No pose selected or routine is empty.");
+            }
+        }
     }
 }
