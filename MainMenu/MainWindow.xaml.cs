@@ -15,6 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -26,10 +27,12 @@ namespace MainMenu
     /// </summary>
     public partial class MainWindow : Window
     {
+        //RoutineData db=new RoutineData();
         // a list to store yoga poses with their categories
         List<YogaPoseWithCategory> yogaPosesWithCategories = new List<YogaPoseWithCategory>();
         // a list to store all the routine objects
         List<Routine> routines = new List<Routine>();
+    
 
         private Routine _selectedRoutine;
         private int _currentPoseIndex;
@@ -44,6 +47,10 @@ namespace MainMenu
                 "Forward Bend Yoga","Hip opening Yoga","Standing Yoga","Restorative Yoga","Arm Balance Yoga","Balancing Yoga",
                 "Inversion Yoga", "All Poses"};
             cbx_Category.ItemsSource = yogaPoseCategories;
+            // Adding some test routines
+            routines.Add(new Routine { Name = "Morning Stretch", LastUpdated = DateTime.Now.AddHours(-1) });
+            routines.Add(new Routine { Name = "Evening Relax", LastUpdated = DateTime.Now.AddHours(-2) });
+            lbx_Routines.ItemsSource = routines;
         }
         private void FetchYogaPoses()
         {
@@ -135,7 +142,7 @@ namespace MainMenu
             foreach (Root root in roots)
             {
                 foreach (Pose p in root.poses)
-                {
+                { 
                     if (p.english_name == name && p.category_name == category)
                     {
                         return p;
@@ -206,20 +213,25 @@ namespace MainMenu
 
         private void btn_AddRoutine_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txt_RoutineName.Text))
+            try
             {
-                Routine newRoutine = new Routine { Name = txt_RoutineName.Text };
-                routines.Add(newRoutine);
-                lbx_Routines.Items.Add(newRoutine);
-                txt_RoutineName.Clear(); // Clear the textbox after adding
+                if (!string.IsNullOrWhiteSpace(txt_RoutineName.Text))
+                {
+                    Routine newRoutine = new Routine { Name = txt_RoutineName.Text };
+                    routines.Add(newRoutine);
+                    RefreshRoutinesListBox();  // Refresh the list to update the view
+                    txt_RoutineName.Clear(); // Clear the textbox after adding
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a name for the routine.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please enter a name for the routine.");
+                MessageBox.Show("Failed to add new routine: " + ex.Message);
             }
         }
-
-
         private void btn_AddPose_ToRoutine_Click(object sender, RoutedEventArgs e)
         {
             if (lbx_yogaPoses.SelectedItem != null)
@@ -231,6 +243,8 @@ namespace MainMenu
                     SelectRoutineWindow selectRoutineWindow = new SelectRoutineWindow(routines);
                     selectRoutineWindow.PoseToAdd = pose;
                     selectRoutineWindow.ShowDialog();
+                    RefreshRoutinesListBox();  // Refresh the list to update the view
+
                 }
                 else
                 {
@@ -241,6 +255,7 @@ namespace MainMenu
             {
                 MessageBox.Show("Please select a pose to add.");
             }
+           
         }
         private void lbx_Routines_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -252,7 +267,7 @@ namespace MainMenu
             }
             else
             {
-                // Optionally clear previous details or show a default message
+                
                 ClearPoseDetails();
             }
         }
@@ -286,6 +301,18 @@ namespace MainMenu
                 UpdatePoseDetails(_selectedRoutine.Poses[_currentPoseIndex]);
             }
         }
+
+      
+        private void RefreshRoutinesListBox()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                routines.Sort(); // This sorts the routines
+                lbx_Routines.ItemsSource = null;
+                lbx_Routines.ItemsSource = routines.ToList(); // ToList() to ensure the UI gets a new collection
+            });
+        }
+
 
     }
 }

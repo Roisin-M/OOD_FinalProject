@@ -8,7 +8,7 @@
         Title="MainWindow" Width="1200" Height="700"
         WindowState="Maximized">
     <Grid>
-        <TabControl TabStripPlacement="Right" BorderThickness="0" Margin="15">
+        <TabControl TabStripPlacement="Right" BorderThickness="0" Margin="15" >
             <!-- Style for TabItems -->
             <TabControl.Resources>
                 <Style TargetType="TabItem">
@@ -43,7 +43,6 @@
                     <Label Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Content="Category:"></Label>
                     <ComboBox Name="cbx_Category" Height="30" Width="175" Grid.Column="0" Grid.Row="0" SelectionChanged="cbx_Category_SelectionChanged"></ComboBox>
                     <Label Grid.Column="1" HorizontalAlignment="Center" Grid.Row="0" Content="Focus:"></Label>
-                    <ComboBox Name="cbx_Focus" Height="30" Width="100" Grid.Column="1" Grid.Row="0"></ComboBox>
                     <ListBox Name="lbx_yogaPoses" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="3" SelectionChanged="lbx_yogaPoses_SelectionChanged">
                     </ListBox>
                     <Button Name="btn_RandomYogaPose" Grid.Column="2" Grid.Row="1" Width="140" Height="40" Content="Random" Click="btn_RandomYogaPose_Click"></Button>
@@ -67,7 +66,7 @@
                     <!-- Panel for routines list and adding new routines -->
                     <StackPanel Grid.Column="0" Margin="10">
                         <Label Content="Routines" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
-                        <ListBox Name="lbx_Routines" DisplayMemberPath="Name" SelectionChanged="lbx_Routines_SelectionChanged" Height="300" Margin="0,0,0,10"/>
+                        <ListBox Name="lbx_Routines" SelectionChanged="lbx_Routines_SelectionChanged" Height="300" Margin="0,0,0,10"/>
                         <TextBox Name="txt_RoutineName" Width="200" Margin="0,0,0,10" ToolTip="Enter new routine name"/>
                         <Button Content="Add New Routine" Click="btn_AddRoutine_Click" Width="200" Height="30"/>
                     </StackPanel>

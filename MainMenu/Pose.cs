@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+
 
 namespace MainMenu
 {
@@ -27,7 +29,7 @@ namespace MainMenu
         public int id { get; set; }
         public string category_name { get; set; }
         public string category_description { get; set; }
-        public List<Pose> poses { get; set; }
+        public virtual List<Pose> poses { get; set; }
     }
     public class YogaPoseWithCategory
     {
@@ -40,14 +42,17 @@ namespace MainMenu
         }
     }
     // routine class to hold name of routine and the list of poses
-    public class Routine
+    public class Routine : IComparable<Routine>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-        public List<Pose> Poses { get; set; } 
+        public virtual List<Pose> Poses { get; set; }
+        public DateTime LastUpdated { get; set; }
 
         public Routine()
         {
             Poses = new List<Pose>();
+            LastUpdated = DateTime.Now; // Automatically sets to current date and time upon creation
         }
 
         // Method to add a pose to the routine
@@ -56,9 +61,14 @@ namespace MainMenu
             if (!Poses.Contains(pose))
             {
                 Poses.Add(pose);
+                LastUpdated = DateTime.Now; 
             }
         }
-
+        public int CompareTo(Routine other)
+        {
+            // Sort routines by LastUpdated in descending order
+            return other.LastUpdated.CompareTo(this.LastUpdated);
+        }
         // Method to remove a pose from the routine
         public void RemovePose(Pose pose)
         {
@@ -66,9 +76,10 @@ namespace MainMenu
         }
         public override string ToString()
         {
-            return Name;
+            return $"{Name} - {LastUpdated}"; //.ToShortDateString()
         }
     }
+
 
 
 
